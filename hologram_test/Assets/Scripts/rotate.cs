@@ -4,18 +4,22 @@ using System.Collections;
 public class rotate : MonoBehaviour {
 
     private int ang;
+    private int timer;
 
 	// Use this for initialization
 	void Start () {
         ang = 1;
+        timer = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
         // Sets the transforms rotation to rotate 30 degrees around the y-axis
-        transform.rotation = Quaternion.AngleAxis(ang, Vector3.up);
-        transform.rotation = Quaternion.AngleAxis(ang, Vector3.left);
-        ang = ang + 1;
+
+        transform.RotateAround(transform.position, Vector3.up, ang);
+        transform.RotateAround(transform.position, Vector3.left, ang);
+ 
+
         
     }
 }
