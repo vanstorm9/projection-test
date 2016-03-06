@@ -6,6 +6,8 @@ public class navManager : MonoBehaviour {
     private int timer;
     public string[] object_list = { "car","bewd", "wk", "unitychan"};
     public int obj_iter = 0;
+    bool first_time = true;
+    GameObject curr_object;
     Controller controller;
     // Use this for initialization
 
@@ -24,12 +26,14 @@ public class navManager : MonoBehaviour {
 
     void removeOtherModel()
     {
-        string curr_obj_state = object_list[obj_iter];
+        //string curr_obj_state = object_list[obj_iter];
 
-        GameObject temp = GameObject.Find(curr_obj_state);
+        //GameObject temp = GameObject.Find(curr_obj_state);
+        GameObject temp = curr_object;
+
         if (temp == null)
         {
-            Debug.Log("GameObject " + curr_obj_state + " not found");
+            //Debug.Log("GameObject " + curr_obj_state + " not found");
             UnityEditor.EditorApplication.isPlaying = false;
             return;
         }
@@ -49,9 +53,13 @@ public class navManager : MonoBehaviour {
 
     void foundHoloObject(int ind)
     {
-        removeOtherModel();
-
+        if (first_time == false)
+        {
+            removeOtherModel();
+        }
+        first_time = false;
         GameObject temp = GameObject.Find(object_list[ind]);
+        curr_object = temp;
         Debug.Log(temp);
         if (temp == null)
         {
@@ -172,6 +180,8 @@ public class navManager : MonoBehaviour {
     }
 
     void Start () {
+        curr_object = GameObject.Find("Cube");
+
         //controller = new Controller();
         //controller.Config.SetFloat("Gesture.Swipe.MinLength", 200.0f);
         //controller.Config.SetFloat("Gesture.Swipe.MinVelocity", 750f);
