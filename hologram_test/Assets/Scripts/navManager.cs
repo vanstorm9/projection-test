@@ -15,6 +15,25 @@ public class navManager : MonoBehaviour {
     // void GUIElements()
     void OnGUI()
     {
+        Event e = Event.current;
+        if (e.keyCode == KeyCode.Return)
+        {
+            Debug.Log("Enter key detected!");
+            Debug.Log(text);
+            for (int i = 0; i < object_list.Length; i++)
+            {
+                if (string.Equals(text, object_list[i]))
+                {
+                    obj_iter = i;
+                    //text = "Found!";
+                    text = "";
+                    foundHoloObject(i);
+                    return;
+                }
+            }
+            //text = "No object found. . .";
+            text = "";
+        }
         float height_rect = UnityEngine.Screen.height * (0.45f / 6.3f);
         float width_rect = UnityEngine.Screen.width * (1.1f / 6.3f);
         float y_rect = UnityEngine.Screen.height * (0.1f / 6.3f);
@@ -105,7 +124,6 @@ public class navManager : MonoBehaviour {
             if (temp == null)
             {
                 Debug.Log("GameObject " + curr_obj_state + " not found");
-                UnityEditor.EditorApplication.isPlaying = false;
             }
             manager managerScript = temp.GetComponent<manager>();
             temp.transform.position = managerScript.original_position;
