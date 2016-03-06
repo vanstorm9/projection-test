@@ -20,7 +20,5 @@ public class rotate : MonoBehaviour {
 
         transform.RotateAround(transform.position, Vector3.up, ang);
 
-
-
     }
 }

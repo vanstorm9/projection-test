@@ -7,11 +7,15 @@ public class manager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	    original_position = transform.position;
-        position = transform.position;
         GetComponent<Renderer>().enabled = false;
         
     }
-	
+
+    public void teleportBack()
+    {
+        transform.position = original_position;
+    }
+
 	// Update is called once per frame
 	void Update () {
 	

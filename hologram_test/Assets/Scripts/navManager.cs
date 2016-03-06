@@ -9,6 +9,79 @@ public class navManager : MonoBehaviour {
     Controller controller;
     // Use this for initialization
 
+    public string text = "Search. . .";
+    // void GUIElements()
+    void OnGUI()
+    {
+        float height_rect = UnityEngine.Screen.height * (0.45f / 6.3f);
+        float width_rect = UnityEngine.Screen.width * (1.1f / 6.3f);
+        float y_rect = UnityEngine.Screen.height * (0.1f / 6.3f);
+        float x_rect = UnityEngine.Screen.width * (2.7f / 6.55f);
+
+        text = GUI.TextField(new Rect(x_rect, y_rect, width_rect, height_rect), text, 25);
+    }
+
+
+    void removeOtherModel()
+    {
+        string curr_obj_state = object_list[obj_iter];
+
+        GameObject temp = GameObject.Find(curr_obj_state);
+        if (temp == null)
+        {
+            Debug.Log("GameObject " + curr_obj_state + " not found");
+            UnityEditor.EditorApplication.isPlaying = false;
+            return;
+        }
+        manager managerScript = temp.GetComponent<manager>();
+        Debug.Log(managerScript.original_position);
+        Debug.Log(managerScript.transform.position);
+        managerScript.teleportBack();
+       
+        //temp.GetComponent<Renderer>().enabled = false;
+        //GetComponent<Renderer>().enabled = true;
+
+
+
+    }
+
+    void foundHoloObject(int ind)
+    {
+        removeOtherModel();
+
+        GameObject temp = GameObject.Find(object_list[ind]);
+        if (temp == null)
+        {
+            Debug.Log("GameObject " + text + " not found");
+            UnityEditor.EditorApplication.isPlaying = false;
+            return;
+        }
+        temp.transform.position = transform.position;
+        //temp.GetComponent<Renderer>().enabled = true;
+        GetComponent<Renderer>().enabled = false;
+    }
+
+    void keyCheck()
+    {
+        if (Input.GetKeyDown("return"))
+        {
+            Debug.Log("Enter key detected!");
+            Debug.Log(text);
+            for (int i = 0; i < object_list.Length; i++)
+            {
+                if (text == object_list[i])
+                {
+                    text = "Found!";
+                    foundHoloObject(i);
+                    return;
+                }
+            }
+            text = "No object found. . .";
+          
+        }
+    }
+
+ 
     void swapping()
     {
         string curr_obj_state = object_list[obj_iter];
@@ -129,55 +202,29 @@ public class navManager : MonoBehaviour {
     }
 
     void Start () {
-        controller = new Controller();
-        controller.EnableGesture(Gesture.GestureType.TYPE_SWIPE);
+        //controller = new Controller();
         //controller.Config.SetFloat("Gesture.Swipe.MinLength", 200.0f);
         //controller.Config.SetFloat("Gesture.Swipe.MinVelocity", 750f);
-        controller.Config.SetFloat("Gesture.Swipe.MinLength", 50.0f);
-        controller.Config.SetFloat("Gesture.Swipe.MinVelocity", 150f);
 
-        controller.Config.Save();
-        Debug.Log("Leap Connected");
+
+        //controller.Config.Save();
+        //Debug.Log("Leap Connected");
         timer = 0;
 	}
-
-    void swipeFun()
-    {
-        Frame frame = controller.Frame();
-        GestureList gestures = frame.Gestures();
-        for (int i = 0; i < gestures.Count; i++)
-        {
-            Gesture gesture = gestures[i];
-            if (gesture.Type == Gesture.GestureType.TYPESWIPE)
-            {
-                SwipeGesture Swipe = new SwipeGesture(gesture);
-                Vector swipeDirection = Swipe.Direction;
-                Debug.Log("swipe: " + swipeDirection.x);
-                if (swipeDirection.x < 0)
-                {
-                    Debug.Log("Left");
-                    deletePrevModel();
-                    nextLeft();
-                }
-                else if (swipeDirection.x > 0) {
-                    Debug.Log("Right");
-                    deletePrevModel();
-                    nextRight();
-                }
-
-
-            }
-        }
-    }
-
+    
+    //
     // Update is called once per frame
     void Update () {
-
-        if (timer % 20 == 0 || timer > 20)
+        //circleFun();
+        /*
+        if (timer > 20)
         {
             swipeFun();
             timer = 0;
         }
+        */
+
+        keyCheck();
         //Debug.Log(timer);
         //swapping();
 
