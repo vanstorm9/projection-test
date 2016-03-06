@@ -41,9 +41,9 @@ public class SkeletalHand : HandModel {
         Vector position = hand.PalmPosition;
         Vector velocity = hand.PalmVelocity;
         Vector direction = hand.Direction;
-        Debug.Log("x: " + direction.x);
-        Debug.Log("y: " + direction.y);
-        Debug.Log("z: " + direction.z);
+        //Debug.Log("x: " + direction.x);
+        //Debug.Log("y: " + direction.y);
+        //Debug.Log("z: " + direction.z);
 
         model.transform.rotation = Quaternion.Euler(direction.x*rotate_senstivity, direction.y* rotate_senstivity, direction.z* rotate_senstivity);
 
