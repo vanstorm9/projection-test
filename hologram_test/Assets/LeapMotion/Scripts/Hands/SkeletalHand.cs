@@ -17,7 +17,9 @@ using Leap;
 public class SkeletalHand : HandModel {
   protected const float PALM_CENTER_OFFSET = 0.015f;
     Controller controller;
-
+    private bool model_enabled = false;
+    GameObject main_model;
+    private int rotate_senstivity = -80;
 
     void Start() {
         // Ignore collisions with self.
@@ -31,7 +33,7 @@ public class SkeletalHand : HandModel {
     }
   }
 
-    void modelHandControl()
+    void modelHandControl(GameObject model)
     {
         controller = new Controller();
         Frame frame = controller.Frame();
@@ -43,6 +45,8 @@ public class SkeletalHand : HandModel {
         Debug.Log("y: " + direction.y);
         Debug.Log("z: " + direction.z);
 
+        model.transform.rotation = Quaternion.Euler(direction.x*rotate_senstivity, direction.y* rotate_senstivity, direction.z* rotate_senstivity);
+
     }
 
     void rotate_disabler()
@@ -51,10 +55,11 @@ public class SkeletalHand : HandModel {
         string[] obj_list = nav_script.object_list;
         int iter = nav_script.obj_iter;
 
-        GameObject temp = GameObject.Find(obj_list[iter]);
-        rotate rotate_script = temp.GetComponent<rotate>();
+        main_model = GameObject.Find(obj_list[iter]);
+        rotate rotate_script = main_model.GetComponent<rotate>();
         rotate_script.enabled = false;
-        modelHandControl();
+        model_enabled = true;
+        modelHandControl(main_model);
     }
 
     void rotate_enabler()
@@ -87,8 +92,14 @@ public class SkeletalHand : HandModel {
 
         if (palm != null)
         {
-            rotate_disabler();
-
+            if (model_enabled)
+            {
+                modelHandControl(main_model);
+            }
+            else
+            {
+                rotate_disabler();
+            }
             palm.position = GetPalmCenter();
             palm.rotation = GetPalmRotation();
         }
