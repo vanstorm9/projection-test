@@ -8,6 +8,8 @@ public class manager : MonoBehaviour {
 	void Start () {
 	    original_position = transform.position;
         position = transform.position;
+        GetComponent<Renderer>().enabled = false;
+        
     }
 	
 	// Update is called once per frame
