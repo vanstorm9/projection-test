@@ -38,12 +38,12 @@ public class navManager : MonoBehaviour {
             return;
         }
         manager managerScript = temp.GetComponent<manager>();
-        Debug.Log(managerScript.original_position);
-        Debug.Log(managerScript.transform.position);
+        //Debug.Log(managerScript.original_position);
+        //Debug.Log(managerScript.transform.position);
         managerScript.teleportBack(temp);
 
-        Debug.Log(managerScript.original_position);
-        Debug.Log(managerScript.transform.position);
+        //Debug.Log(managerScript.original_position);
+        //Debug.Log(managerScript.transform.position);
         //temp.GetComponent<Renderer>().enabled = false;
         //GetComponent<Renderer>().enabled = true;
 
