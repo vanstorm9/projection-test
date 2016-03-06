@@ -46,6 +46,9 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\manager.cs" />
+     <Compile Include="Assets\Scripts\navManager.cs" />
+     <Compile Include="Assets\Scripts\rotate.cs" />
      <Compile Include="Assets\Scripts\rotate_45.cs" />
      <None Include="Assets\blue-eyes white dragon\ReadMe.txt" />
  <Reference Include="UnityEngine.UI">

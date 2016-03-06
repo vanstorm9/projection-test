@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class rotate : MonoBehaviour {
+public class rotate_45 : MonoBehaviour {
 
     private int ang;
     private int timer;
