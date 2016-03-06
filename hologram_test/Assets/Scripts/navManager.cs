@@ -10,9 +10,17 @@ public class navManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (timer >= 100) {
+        //Debug.Log(timer);
+        if (timer >= 100)
+        {
             GameObject temp = GameObject.Find("bewd");
             temp.transform.position = transform.position;
+        }
+        if (timer >= 200) {
+            GameObject temp = GameObject.Find("bewd");
+            manager managerScript = temp.GetComponent<manager>();
+            temp.transform.position = managerScript.original_position;
+            timer = 0;
         }
         timer++;
     }
