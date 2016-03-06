@@ -8,6 +8,7 @@ using UnityEngine;
 using System.Collections;
 using Leap;
 
+
 /** 
  * A hand object consisting of discrete, component parts.
  * 
@@ -15,8 +16,10 @@ using Leap;
  */
 public class SkeletalHand : HandModel {
   protected const float PALM_CENTER_OFFSET = 0.015f;
+    Controller controller;
 
-  void Start() {
+
+    void Start() {
         // Ignore collisions with self.
         
         Leap.Utils.IgnoreCollisions(gameObject, gameObject);
@@ -28,9 +31,22 @@ public class SkeletalHand : HandModel {
     }
   }
 
+    void modelHandControl()
+    {
+        controller = new Controller();
+        Frame frame = controller.Frame();
+        Hand hand = frame.Hands.Rightmost;
+        Vector position = hand.PalmPosition;
+        Vector velocity = hand.PalmVelocity;
+        Vector direction = hand.Direction;
+        Debug.Log("x: " + direction.x);
+        Debug.Log("y: " + direction.y);
+        Debug.Log("z: " + direction.z);
+
+    }
+
     void rotate_disabler()
     {
-        Debug.Log("Hand detected");
         navManager nav_script = GameObject.Find("Cube").GetComponent<navManager>();
         string[] obj_list = nav_script.object_list;
         int iter = nav_script.obj_iter;
@@ -38,6 +54,7 @@ public class SkeletalHand : HandModel {
         GameObject temp = GameObject.Find(obj_list[iter]);
         rotate rotate_script = temp.GetComponent<rotate>();
         rotate_script.enabled = false;
+        modelHandControl();
     }
 
     void rotate_enabler()
