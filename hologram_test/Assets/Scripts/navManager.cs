@@ -92,6 +92,18 @@ public class navManager : MonoBehaviour {
         GetComponent<Renderer>().enabled = false;
     }
 
+    void rotate_disabler()
+    {
+        navManager nav_script = GameObject.Find("Cube").GetComponent<navManager>();
+        string[] obj_list = nav_script.object_list;
+        int iter = nav_script.obj_iter;
+
+        GameObject model = GameObject.Find(obj_list[iter]);
+        rotate rotate_script = model.GetComponent<rotate>();
+        rotate_script.enabled = false;
+
+    }
+
     void keyCheck()
     {
    
@@ -111,6 +123,35 @@ public class navManager : MonoBehaviour {
             text = "No object found. . .";
           
         }
+
+        if (Input.GetKey("up"))
+        {
+            rotate_disabler();
+            GameObject temp = GameObject.Find(object_list[obj_iter]);
+            temp.transform.Rotate(10, 0, 0);
+        }
+        if (Input.GetKey("down"))
+        {
+            rotate_disabler();
+            GameObject temp = GameObject.Find(object_list[obj_iter]);
+            temp.transform.Rotate(-10, 0, 0);
+
+        }
+        if (Input.GetKey("left"))
+        {
+            rotate_disabler();
+            GameObject temp = GameObject.Find(object_list[obj_iter]);
+            temp.transform.Rotate(0, 10, 0);
+
+        }
+        if (Input.GetKey("right"))
+        {
+            rotate_disabler();
+            GameObject temp = GameObject.Find(object_list[obj_iter]);
+            temp.transform.Rotate(0, -10, 0);
+
+        }
+
     }
 
  
