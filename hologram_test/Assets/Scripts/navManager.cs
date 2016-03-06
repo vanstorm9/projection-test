@@ -4,7 +4,7 @@ using Leap;
 
 public class navManager : MonoBehaviour {
     private int timer;
-    public string[] object_list = new string[] { "bewd", "wk"};
+    public string[] object_list = { "car","bewd", "wk", "unitychan"};
     public int obj_iter = 0;
     Controller controller;
     // Use this for initialization
@@ -36,8 +36,10 @@ public class navManager : MonoBehaviour {
         manager managerScript = temp.GetComponent<manager>();
         Debug.Log(managerScript.original_position);
         Debug.Log(managerScript.transform.position);
-        managerScript.teleportBack();
-       
+        managerScript.teleportBack(temp);
+
+        Debug.Log(managerScript.original_position);
+        Debug.Log(managerScript.transform.position);
         //temp.GetComponent<Renderer>().enabled = false;
         //GetComponent<Renderer>().enabled = true;
 
@@ -50,27 +52,30 @@ public class navManager : MonoBehaviour {
         removeOtherModel();
 
         GameObject temp = GameObject.Find(object_list[ind]);
+        Debug.Log(temp);
         if (temp == null)
         {
             Debug.Log("GameObject " + text + " not found");
             UnityEditor.EditorApplication.isPlaying = false;
             return;
         }
-        temp.transform.position = transform.position;
+        GameObject cube_model = GameObject.Find("Cube");
+        temp.transform.position = cube_model.transform.position;
         //temp.GetComponent<Renderer>().enabled = true;
         GetComponent<Renderer>().enabled = false;
     }
 
     void keyCheck()
     {
+   
         if (Input.GetKeyDown("return"))
         {
             Debug.Log("Enter key detected!");
             Debug.Log(text);
-            for (int i = 0; i < object_list.Length; i++)
-            {
-                if (text == object_list[i])
+            for (int i = 0; i < object_list.Length; i++) { 
+                if (string.Equals(text,object_list[i]))
                 {
+                    obj_iter = i;
                     text = "Found!";
                     foundHoloObject(i);
                     return;
@@ -82,42 +87,7 @@ public class navManager : MonoBehaviour {
     }
 
  
-    void swapping()
-    {
-        string curr_obj_state = object_list[obj_iter];
-        if (timer >= 100)
-        {
-            GameObject temp = GameObject.Find(curr_obj_state);
-            if (temp == null)
-            {
-                Debug.Log("GameObject " + curr_obj_state + " not found");
-                UnityEditor.EditorApplication.isPlaying = false;
-            }
-            temp.transform.position = transform.position;
-            temp.GetComponent<Renderer>().enabled = true;
-            GetComponent<Renderer>().enabled = false;
-        }
-        if (timer >= 200)
-        {
-            GameObject temp = GameObject.Find(curr_obj_state);
-            if (temp == null)
-            {
-                Debug.Log("GameObject " + curr_obj_state + " not found");
-                UnityEditor.EditorApplication.isPlaying = false;
-            }
-            manager managerScript = temp.GetComponent<manager>();
-            temp.transform.position = managerScript.original_position;
-            temp.GetComponent<Renderer>().enabled = false;
-            GetComponent<Renderer>().enabled = true;
-            if (object_list.Length <= obj_iter + 1) {
-                obj_iter = 0;
-            } else {
-                obj_iter++;
-            }
-            timer = 0;
-        }
-        timer++;
-    }
+   
 
     void deletePrevModel()
     {

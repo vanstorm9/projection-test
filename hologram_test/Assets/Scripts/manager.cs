@@ -7,13 +7,14 @@ public class manager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	    original_position = transform.position;
-        GetComponent<Renderer>().enabled = false;
+        //GetComponent<Renderer>().enabled = false;
         
     }
 
-    public void teleportBack()
+    public void teleportBack(GameObject model)
     {
-        transform.position = original_position;
+        Debug.Log(model);
+        model.transform.position = new Vector3(1, 0, -20); ;
     }
 
 	// Update is called once per frame
