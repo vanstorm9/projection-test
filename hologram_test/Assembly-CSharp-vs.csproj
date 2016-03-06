@@ -173,6 +173,8 @@
      <Compile Include="Assets\OVR\Scripts\Util\OVRSceneSampleController.cs" />
      <Compile Include="Assets\OVR\Scripts\Util\OVRScreenFade.cs" />
      <Compile Include="Assets\OVR\Scripts\Util\OVRTrackerBounds.cs" />
+     <Compile Include="Assets\Scripts\grabbing_script.cs" />
+     <Compile Include="Assets\Scripts\hand_prep.cs" />
      <Compile Include="Assets\Scripts\manager.cs" />
      <Compile Include="Assets\Scripts\navManager.cs" />
      <Compile Include="Assets\Scripts\rotate.cs" />

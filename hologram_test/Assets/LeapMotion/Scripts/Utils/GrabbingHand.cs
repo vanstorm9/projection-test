@@ -308,12 +308,13 @@ public class GrabbingHand : MonoBehaviour {
     UpdatePinchPosition();
     HandModel hand_model = GetComponent<HandModel>();
     Hand leap_hand = hand_model.GetLeapHand();
-
-    if (leap_hand == null)
+        Debug.Log("Pinching");
+        if (leap_hand == null)
       return;
 
     PinchState new_pinch_state = GetNewPinchState();
-    if (pinch_state_ == PinchState.kPinched) {
+        
+        if (pinch_state_ == PinchState.kPinched) {
       if (new_pinch_state == PinchState.kReleased)
         OnRelease();
       else if (active_object_ != null)

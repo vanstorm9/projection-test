@@ -17,22 +17,39 @@ public class RigidHand : SkeletalHand {
     base.InitHand();
   }
 
-  public override void UpdateHand() {
+    void rotate_enabler()
+    {
+        Debug.Log("Hand not visible");
+        navManager nav_script = GameObject.Find("Cube").GetComponent<navManager>();
+        string[] obj_list = nav_script.object_list;
+        int iter = nav_script.obj_iter;
+
+        GameObject temp = GameObject.Find(obj_list[iter]);
+        rotate rotate_script = temp.GetComponent<rotate>();
+        rotate_script.enabled = true;
+    }
+
+    public override void UpdateHand() {
     for (int f = 0; f < fingers.Length; ++f) {
       if (fingers[f] != null)
         fingers[f].UpdateFinger();
     }
 
-    if (palm != null) {
-      Rigidbody palmBody = palm.GetComponent<Rigidbody>();
-      if (palmBody) {
-        palmBody.MovePosition(GetPalmCenter());
-        palmBody.MoveRotation(GetPalmRotation());
-      } else {
-        palm.position = GetPalmCenter();
-        palm.rotation = GetPalmRotation();
-      }
-    }
+        if (palm != null)
+        {
+            Rigidbody palmBody = palm.GetComponent<Rigidbody>();
+            if (palmBody)
+            {
+                palmBody.MovePosition(GetPalmCenter());
+                palmBody.MoveRotation(GetPalmRotation());
+            }
+            else
+            {
+                palm.position = GetPalmCenter();
+                palm.rotation = GetPalmRotation();
+            }
+        }
+        
     
     if (forearm != null) {
       // Set arm dimensions.

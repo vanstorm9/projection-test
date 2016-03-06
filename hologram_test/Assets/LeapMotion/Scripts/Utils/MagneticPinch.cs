@@ -77,8 +77,11 @@ public class MagneticPinch : MonoBehaviour {
 
       for (int j = 0; j < FingerModel.NUM_BONES && !trigger_pinch; ++j) {
         Vector leap_joint_position = finger.Bone((Bone.BoneType)j).NextJoint;
-        if (leap_joint_position.DistanceTo(leap_thumb_tip) < trigger_distance)
-          trigger_pinch = true;
+                if (leap_joint_position.DistanceTo(leap_thumb_tip) < trigger_distance)
+                {
+                    trigger_pinch = true;
+                    Debug.Log("Pinch detected");
+                }
       }
     }
 

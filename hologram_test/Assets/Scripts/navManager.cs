@@ -4,8 +4,8 @@ using Leap;
 
 public class navManager : MonoBehaviour {
     private int timer;
-    private string[] object_list = new string[] { "bewd", "wk"};
-    private int obj_iter = 0;
+    public string[] object_list = new string[] { "bewd", "wk"};
+    public int obj_iter = 0;
     Controller controller;
     // Use this for initialization
 

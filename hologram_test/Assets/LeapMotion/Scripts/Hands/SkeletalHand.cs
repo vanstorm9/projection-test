@@ -17,8 +17,9 @@ public class SkeletalHand : HandModel {
   protected const float PALM_CENTER_OFFSET = 0.015f;
 
   void Start() {
-    // Ignore collisions with self.
-    Leap.Utils.IgnoreCollisions(gameObject, gameObject);
+        // Ignore collisions with self.
+        
+        Leap.Utils.IgnoreCollisions(gameObject, gameObject);
 
     for (int i = 0; i < fingers.Length; ++i) {
       if (fingers[i] != null) {
@@ -27,8 +28,31 @@ public class SkeletalHand : HandModel {
     }
   }
 
-  /** Updates the hand and its component parts by setting their positions and rotations. */
-  public override void UpdateHand() {
+    void rotate_disabler()
+    {
+        Debug.Log("Hand detected");
+        navManager nav_script = GameObject.Find("Cube").GetComponent<navManager>();
+        string[] obj_list = nav_script.object_list;
+        int iter = nav_script.obj_iter;
+
+        GameObject temp = GameObject.Find(obj_list[iter]);
+        rotate rotate_script = temp.GetComponent<rotate>();
+        rotate_script.enabled = false;
+    }
+
+    void rotate_enabler()
+    {
+        Debug.Log("Hand not visible");
+        navManager nav_script = GameObject.Find("Cube").GetComponent<navManager>();
+        string[] obj_list = nav_script.object_list;
+        int iter = nav_script.obj_iter;
+
+        GameObject temp = GameObject.Find(obj_list[iter]);
+        rotate rotate_script = temp.GetComponent<rotate>();
+        rotate_script.enabled = true;
+    }
+    /** Updates the hand and its component parts by setting their positions and rotations. */
+    public override void UpdateHand() {
     SetPositions();
   }
 
@@ -38,15 +62,20 @@ public class SkeletalHand : HandModel {
   }
 
   protected void SetPositions() {
+        
     for (int f = 0; f < fingers.Length; ++f) {
       if (fingers[f] != null)
         fingers[f].UpdateFinger();
     }
 
-    if (palm != null) {
-      palm.position = GetPalmCenter();
-      palm.rotation = GetPalmRotation();
-    }
+        if (palm != null)
+        {
+            rotate_disabler();
+
+            palm.position = GetPalmCenter();
+            palm.rotation = GetPalmRotation();
+        }
+        
 
     if (wristJoint != null) {
       wristJoint.position = GetWristPosition();
@@ -58,6 +87,7 @@ public class SkeletalHand : HandModel {
       forearm.rotation = GetArmRotation();
     }
   }
+
 }
 
 
