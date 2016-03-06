@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+//using Leap;
 
 public class navManager : MonoBehaviour {
     private int timer;
     private string[] object_list = new string[] { "bewd", "wk"};
     private int obj_iter = 0;
+    //Controller controller = new Controller();
     // Use this for initialization
 
     void swapping()
