@@ -53,7 +53,7 @@ public class navManager : MonoBehaviour {
         if (temp == null)
         {
             //Debug.Log("GameObject " + curr_obj_state + " not found");
-            UnityEditor.EditorApplication.isPlaying = false;
+            //UnityEditor.EditorApplication.isPlaying = false;
             return;
         }
         manager managerScript = temp.GetComponent<manager>();
@@ -83,7 +83,7 @@ public class navManager : MonoBehaviour {
         if (temp == null)
         {
             Debug.Log("GameObject " + text + " not found");
-            UnityEditor.EditorApplication.isPlaying = false;
+            //UnityEditor.EditorApplication.isPlaying = false;
             return;
         }
         GameObject cube_model = GameObject.Find("Cube");
@@ -212,7 +212,7 @@ public class navManager : MonoBehaviour {
         if (temp == null)
         {
             Debug.Log("GameObject " + curr_obj_state + " not found");
-            UnityEditor.EditorApplication.isPlaying = false;
+            //UnityEditor.EditorApplication.isPlaying = false;
         }
         temp.transform.position = transform.position;
         temp.GetComponent<Renderer>().enabled = true;
@@ -230,7 +230,7 @@ public class navManager : MonoBehaviour {
         if (temp == null)
         {
             Debug.Log("GameObject " + curr_obj_state + " not found");
-            UnityEditor.EditorApplication.isPlaying = false;
+            //UnityEditor.EditorApplication.isPlaying = false;
         }
         temp.transform.position = transform.position;
         temp.GetComponent<Renderer>().enabled = true;

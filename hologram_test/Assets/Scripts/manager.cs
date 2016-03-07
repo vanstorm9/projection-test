@@ -7,7 +7,7 @@ public class manager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	    original_position = transform.position;
-        GetComponent<Renderer>().enabled = false;
+        //GetComponent<Renderer>().enabled = false;
         
     }
 
